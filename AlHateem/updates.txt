@@ -1,0 +1,4 @@
+This page includes future updates/versions.
+
+Need an admin page where admin can register/update/delete a user of images/videos in the app.
+

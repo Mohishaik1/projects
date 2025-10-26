@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-const ImageSlider = ({ images, autoPlay = true, interval = 5000 }) => {
+const ImageSlider = ({ images, autoPlay = true, interval = 3000 }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
@@ -28,7 +28,7 @@ const ImageSlider = ({ images, autoPlay = true, interval = 5000 }) => {
   };
 
   return (
-    <div className="relative w-full h-120 md:h-[500px] overflow-hidden rounded-lg shadow-2xl">
+    <div className="relative w-full h-120 md:h-[700px] overflow-hidden rounded-lg shadow-2xl">
       {/* Main Image Container */}
       <div className="relative w-full h-full">
         {images.map((image, index) => (
@@ -41,7 +41,9 @@ const ImageSlider = ({ images, autoPlay = true, interval = 5000 }) => {
             <img
               src={image.src}
               alt={image.alt}
-              className="w-full h-full object-cover"
+              className="w-full h-full object-cover select-none"
+              draggable={false}
+              onContextMenu={(e) => e.preventDefault()}
             />
             {image.caption && (
               <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-6">

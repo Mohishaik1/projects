@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import axios from 'axios';
 
 // styles
 
 //components
 import Alert from '../components/Alert';
+import { use } from "react";
 
 
 
@@ -18,6 +19,8 @@ const Register = ({alert, showAlert}) => {
         psw: '',
         pswRepeat: ''
     });
+
+    const navigate = useNavigate;
 
     const onChangeHandler = (e)=>{
         try {
@@ -40,12 +43,13 @@ const Register = ({alert, showAlert}) => {
                   msg: 'Passwords do not match'
                 });
             } else {
-                const {data} = await axios.post('http://localhost:5500/register', registerFormData);
+                const {data} = await axios.post('http://localhost:5500/api/user/register', registerFormData);
                 console.log(data);
                 showAlert({
                   type: 'success',
                   msg: data.success
                 })
+               navigate('/login'); 
             }
         } catch (error) {
             console.log(error);

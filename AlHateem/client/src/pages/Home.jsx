@@ -1,7 +1,8 @@
 import { Link } from "react-router-dom";
+import { useState } from "react";
 import ImageSlider from "../components/ImageSlider";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { Register } from "./index";
+// import { BrowserRouter, Routes, Route } from "react-router-dom";
+// import { Register } from "./index";
 
 // Import local images
 import kaaba1 from "../assets/Images/HeroImages/Kabaa 1.jpg";
@@ -14,7 +15,10 @@ import madina3 from "../assets/Images/HeroImages/Madina 3.jpg";
 import hero from "../assets/videos/hero.mp4";
 
 function Home() {
-  // Local images for the slider
+  // Mobile menu state
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  // Local images for the slider, can be changed if needed.
   const sliderImages = [
     {
       src: kaaba1,
@@ -57,22 +61,58 @@ function Home() {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
-      {/* Modern Navigation */}
-      <nav className="bg-white/95 backdrop-blur-md shadow-lg sticky top-0 z-50 border-b border-gray-200">
+    <>
+      <style>{`
+        @keyframes shimmer {
+          0% {
+            background-position: 0% center;
+          }
+          100% {
+            background-position: 200% center;
+          }
+        }
+        
+        @keyframes sparkle {
+          0%, 100% {
+            opacity: 1;
+            transform: scale(1);
+          }
+          50% {
+            opacity: 0.8;
+            transform: scale(1.05);
+          }
+        }
+      `}</style>
+      
+      <div className="min-h-screen bg-white font-extrabold">
+        {/* Modern Navigation */}
+      <nav className="bg-white/95 backdrop-blur-md shadow-lg sticky top-0 z-50 border-b border-white-200 opacity-80">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             {/* Logo */}
             <div className="flex items-center">
               <div className="flex-shrink-0">
-                <div className="w-10 h-10 bg-gradient-to-r from-green-600 to-green-700 rounded-lg flex items-center justify-center">
+                <div className="w-10 h-10 bg-gradient-to-r from-green-600 via-emerald-400 to-green-700 rounded-lg flex items-center justify-center animate-pulse shadow-lg shadow-green-500/50">
                   <span className="text-white font-bold text-lg">AH</span>
                 </div>
               </div>
-              <div className="ml-3">
-                <h1 className="text-xl font-bold text-gray-900">
+              <div className="ml-3 relative">
+                <h1 className="text-xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-green-600 via-emerald-400 via-yellow-400 to-green-600 drop-shadow-sm"
+                    style={{
+                      backgroundSize: '200% auto',
+                      animation: 'shimmer 3s linear infinite'
+                    }}>
                   Al-Hateem Haj-Umrah
                 </h1>
+                {/* Sparkle effect */}
+                <span className="absolute top-0 left-0 w-full h-full pointer-events-none"
+                      style={{
+                        background: 'linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.8) 50%, transparent 100%)',
+                        backgroundSize: '200% 100%',
+                        animation: 'shimmer 2s ease-in-out infinite',
+                        mixBlendMode: 'overlay'
+                      }}>
+                </span>
               </div>
             </div>
 
@@ -81,46 +121,85 @@ function Home() {
               <div className="ml-10 flex items-baseline space-x-8">
                 <Link
                   to="/"
-                  className="text-gray-700 hover:text-green-600 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
+                  className="text-black-700 hover:text-green-600 hover:bg-black px-3 py-2 rounded-md text-sm font-extrabold transition-colors duration-200"
                 >
                   Home
                 </Link>
                 <Link
                   to="/packages"
-                  className="text-gray-700 hover:text-green-600 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
+                  className="text-black-700 hover:text-green-600 hover:bg-black px-3 py-2 rounded-md text-sm font-extrabold transition-colors duration-200"
                 >
                   Packages
                 </Link>
                 <Link
                   to="/contact"
-                  className="text-gray-700 hover:text-green-600 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
+                  className="text-black-700 hover:text-green-600 hover:bg-black px-3 py-2 rounded-md text-sm font-extrabold transition-colors duration-200"
                 >
                   Contact
                 </Link>
                 <Link
-                  to="/register"
+                  to="/login"
                   className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors duration-200 shadow-md hover:shadow-lg"
                 >
-                  Book Now
+                  Admin Login
                 </Link>
               </div>
             </div>
 
             {/* Mobile menu button */}
             <div className="md:hidden">
-              <button className="text-gray-700 hover:text-green-600 focus:outline-none focus:text-green-600">
+              <button 
+                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                className="text-gray-700 hover:text-green-600 focus:outline-none focus:text-green-600"
+              >
                 <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
                 </svg>
               </button>
             </div>
           </div>
+          
+          {/* Mobile menu */}
+          {isMobileMenuOpen && (
+            <div className="md:hidden">
+              <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white border-t border-gray-200">
+                <Link
+                  to="/"
+                  className="text-gray-700 hover:text-green-600 block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Home
+                </Link>
+                <Link
+                  to="/packages"
+                  className="text-gray-700 hover:text-green-600 block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Packages
+                </Link>
+                <Link
+                  to="/contact"
+                  className="text-gray-700 hover:text-green-600 block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Contact
+                </Link>
+                <Link
+                  to="/login"
+                  className="bg-green-600 hover:bg-green-700 text-white block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200 mt-2"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Admin Login
+                </Link>
+              </div>
+            </div>
+          )}
         </div>
       </nav>
 
       {/* Hero Section with Image Slider */}
       <section className="relative">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="max-w-7xl  mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <ImageSlider
             images={sliderImages}
             autoPlay={true}
@@ -138,7 +217,7 @@ function Home() {
               <span className="text-4xl ml-2">💫</span>
             </h1>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-              Embark on a spiritual journey to the holy lands of Mecca and Medina with our expertly crafted Hajj and Umrah packages
+              Embark on a spiritual journey to the holy lands of Mecca and Medina with our expertly crafted Hajj and Umrah packages. We provide comprehensive services to make your pilgrimage comfortable and meaningful.
             </p>
           </div>
 
@@ -149,6 +228,9 @@ function Home() {
                 <video 
                   src={hero} 
                   controls 
+                  controlsList="nodownload noplaybackrate"
+                  disablePictureInPicture
+                  onContextMenu={(e) => e.preventDefault()}
                   className="w-full h-full object-cover"
                   poster={kaaba1}
                 >
@@ -178,9 +260,9 @@ function Home() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
               </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-4">Expert Guidance</h3>
+              <h2 className="text-2xl font-bold text-gray-900 mb-4">Expert Guidance</h2>
               <p className="text-gray-600 leading-relaxed">
-                Experienced guides and scholars accompany you throughout your journey, ensuring proper rituals and spiritual fulfillment.
+                Our experienced Islamic scholars and Hajj guides accompany you throughout your journey, ensuring proper rituals and spiritual fulfillment. We provide comprehensive guidance for all Hajj and Umrah rites.
               </p>
             </div>
 
@@ -263,7 +345,7 @@ function Home() {
                 <li><Link to="/" className="text-gray-400 hover:text-white transition-colors">Home</Link></li>
                 <li><Link to="/packages" className="text-gray-400 hover:text-white transition-colors">Packages</Link></li>
                 <li><Link to="/contact" className="text-gray-400 hover:text-white transition-colors">Contact</Link></li>
-                <li><Link to="/register" className="text-gray-400 hover:text-white transition-colors">Book Now</Link></li>
+                {/* <li><Link to="/register" className="text-gray-400 hover:text-white transition-colors">Book Now</Link></li> */}
               </ul>
             </div>
 
@@ -271,9 +353,9 @@ function Home() {
             <div>
               <h4 className="text-lg font-semibold mb-4">Contact Info</h4>
               <div className="space-y-2 text-gray-400">
-                <p>📧 info@alhateem.com</p>
-                <p>📞 +1 (555) 123-4567</p>
-                <p>📍 Your City, Country</p>
+                <p>📧 alhateem.vja@gmail.com</p>
+                <p>📞 +91 9908667187</p>
+                <p>📍 Vijayawada, Andhra Pradesh</p>
               </div>
             </div>
           </div>
@@ -285,7 +367,8 @@ function Home() {
           </div>
         </div>
       </footer>
-    </div>
+      </div>
+    </>
   );
 }
 

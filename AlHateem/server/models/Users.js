@@ -1,5 +1,7 @@
 import mongoose from "mongoose";
 
+
+//Future update for user login and registration
 const registerSchema = new mongoose.Schema({
     fullname:{
         type:String,
