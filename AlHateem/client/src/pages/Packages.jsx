@@ -64,7 +64,7 @@ const Packages = () => {
           {plans.map((plan, index) => (
             <div
               key={index}
-              className="bg-white rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border-2 border-gray-100"
+              className="bg-white h-150 rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border-2 border-gray-100"
             >
               {/* Package Image */}
               {plan.image ? (
@@ -131,9 +131,9 @@ const Packages = () => {
                     </span>
                   </div>
                 </div>
-                
+                {/* Dropdown Button */}
                 <button className="w-full mt-4 sm:mt-6 bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white font-bold py-2.5 sm:py-3 rounded-xl transition-all duration-300 shadow-md hover:shadow-lg active:scale-95 text-sm sm:text-base">
-                  Book Now
+                  Details
                 </button>
               </div>
             </div>
