@@ -11,6 +11,9 @@ import kaaba3 from "../assets/Images/HeroImages/Kaaba 3.jpg";
 import madina1 from "../assets/Images/HeroImages/Madina 1.jpg";
 import madina3 from "../assets/Images/HeroImages/Madina 3.jpg";
 
+//Slider Images
+import services from "../assets/Images/SliderImages/services.gif";
+
 // Local videos
 import hero from "../assets/videos/hero.mp4";
 
@@ -486,6 +489,13 @@ function Home() {
           </div>
         </section>
 
+         <section className="flex justify-center items-center mt-10">
+          <div className="">
+            <img src={services} alt="our services" />
+             </div>
+        </section>
+
+
         {/* Main Content Section */}
         <section
           ref={mainContentRef}
@@ -515,6 +525,8 @@ function Home() {
                 comfortable and meaningful.
               </p>
             </div>
+
+            
 
             {/* Video Section */}
             <div

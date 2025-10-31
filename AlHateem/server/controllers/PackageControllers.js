@@ -6,7 +6,7 @@ const router = express.Router();
 
 router.post('/addpackage', async (req, res) => {
     try {
-      // Remove _id if it exists in the request body
+    //  Saves data except _id field if provided
       const { _id, ...packageDataWithoutId } = req.body;
       
       const packageData = new packageModel(packageDataWithoutId);
